@@ -28,8 +28,6 @@ import java.util.Date;
 
 public class ERServerJavaFx extends Application {
 
-
-
     @Override
     public void start(Stage primaryStage) {
 
@@ -107,19 +105,17 @@ public class ERServerJavaFx extends Application {
 
                     String clientName = clientAddress.getHostName();
                     String clientIP = clientAddress.getHostAddress();
+                    Platform.runLater(()-> {
+
+                        textArea.appendText("\nEstablished Connection with Client\n"
+                                + "Client Name: " + clientName + "\n"
+                                + "Client IP: " + clientIP + " \n\n");
+
+                    });
 
                     inputFromClient = new ObjectInputStream(socket.getInputStream());
 
                     int[] arrayFromClient = (int[])inputFromClient.readObject();
-
-                    Platform.runLater(()-> {
-
-                        textArea.appendText("Established Connection with Client\n"
-                        + "Client Name: " + clientName + "\n"
-                        + "Client IP: " + clientIP + " \n\n");
-
-                    });
-
 
                     mergeSort(arrayFromClient);
 
@@ -130,7 +126,7 @@ public class ERServerJavaFx extends Application {
 
                     Platform.runLater(()-> {
 
-                        textArea.appendText("Wrote to Client");
+                        textArea.appendText("Wrote to Client\n");
 
                     });
                 }
